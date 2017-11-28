@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet(name = "LoginServlet")
 public class LoginServlet extends HttpServlet {
@@ -39,7 +40,6 @@ public class LoginServlet extends HttpServlet {
             ArrayList al = userDao.findMbInfo();
             //并且将al的值“存储”在会话里面
             session.setAttribute("al", al);
-
 
             response.sendRedirect("main.jsp");
         } else {

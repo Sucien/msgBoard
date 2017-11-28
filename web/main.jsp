@@ -6,7 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page import="cs.cwnu.bean.Message" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" import="java.util.*" pageEncoding="GB2312" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" import="cs.cwnu.dao.UserDao" pageEncoding="GB2312" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.Iterator" %>
 <html>
 <head>
     <title>留言板界面</title>
@@ -19,19 +21,32 @@
                 <caption>所有留言信息</caption>
                 <tr>
                     <th>留言人姓名</th>
+                    <th>所属权限</th>
                     <th>留言时间</th>
                     <th>留言标题</th>
                     <th>留言内容</th>
                 </tr>
                 <% ArrayList<Message> al = new ArrayList<Message>();
                    al = (ArrayList) session.getAttribute("al");
+
                    if(al != null){
                        Iterator it = al.iterator();
                        while (it.hasNext()){
                            Message mb = (Message)it.next();
+
                 %>
                 <tr>
                     <td><%= mb.getName()%></td>
+                    <td><%
+                            if ((new UserDao().getUserRole(mb.getName())) == 0){
+                                out.print("管理员");
+                            }else if((new UserDao().getUserRole(mb.getName())) == 1){
+                                out.print("普通用户");
+                            }else {
+                                out.print("未知用户");
+                            }
+
+                    %></td>
                     <td><%= mb.getTime().toString()%></td>
                     <td><%= mb.getTitle()%></td>
                     <td><%= mb.getMessage()%></td>

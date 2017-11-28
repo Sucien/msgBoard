@@ -84,6 +84,45 @@ public class UserDao {
         }
     }
 
+    public int getUserRole(String name){
+
+        int role = -1;
+
+        try{
+            pstmt = conn.prepareStatement("SELECT role FROM users WHERE name=?");
+            pstmt.setString(1,name);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()){
+                role = rs.getInt(1);
+            }
+            return role;
+        }catch (Exception e){
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+
+/*    public int getCount(){
+
+        int count = -1;
+
+        try{
+            pstmt = conn.prepareStatement("SELECT count(*) FROM users");
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()){
+                count = rs.getInt(1);
+            }
+            return count;
+        }catch (Exception e){
+            e.printStackTrace();
+            return 0;
+        }
+    }*/
+
+
     public boolean addInfo(Message message){
         try{
             pstmt = conn.prepareStatement("INSERT INTO messages VALUES(?,?,?,?,?)");
@@ -102,11 +141,12 @@ public class UserDao {
 
 
     //插入用户数据、创建用户数据
-    public boolean insertUser(String name,String password){
+    public boolean insertUser(String name,String password,int role){
         try{
-            pstmt = conn.prepareStatement("INSERT INTO users(name,password) VALUES(?,?)");
+            pstmt = conn.prepareStatement("INSERT INTO users(name,password,role) VALUES(?,?,?)");
             pstmt.setString(1,name);
             pstmt.setString(2,password);
+            pstmt.setInt(3,role);
 
             pstmt.executeUpdate();
             return true;
