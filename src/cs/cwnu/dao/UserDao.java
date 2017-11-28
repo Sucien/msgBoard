@@ -101,7 +101,7 @@ public class UserDao {
     }
 
 
-    //插入用户数据
+    //插入用户数据、创建用户数据
     public boolean insertUser(String name,String password){
         try{
             pstmt = conn.prepareStatement("INSERT INTO users(name,password) VALUES(?,?)");
