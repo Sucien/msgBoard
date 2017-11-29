@@ -19,8 +19,8 @@ public class LeaveMessageServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("gb2312");
-        response.setContentType("gb2312");
+        request.setCharacterEncoding("utf-8");
+        response.setContentType("utf-8");
 
         String title = request.getParameter("title");
         String message = request.getParameter("message");

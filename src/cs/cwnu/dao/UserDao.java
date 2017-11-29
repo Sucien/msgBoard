@@ -136,10 +136,11 @@ public class UserDao {
     //插入用户数据、创建用户数据
     public boolean insertUser(String name,String password,int role) {
         try {
-            pstmt = conn.prepareStatement("INSERT INTO users(name,password,role) VALUES(?,?,?)");
+            pstmt = conn.prepareStatement("INSERT INTO users(name,password,role,status) VALUES(?,?,?,?)");
             pstmt.setString(1, name);
             pstmt.setString(2, password);
             pstmt.setInt(3, role);
+            pstmt.setInt(4,1);
 
             pstmt.executeUpdate();
             return true;

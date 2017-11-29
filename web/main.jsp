@@ -6,17 +6,17 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page import="cs.cwnu.bean.Message" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" import="cs.cwnu.bean.User" pageEncoding="GB2312" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" import="cs.cwnu.bean.User" pageEncoding="utf-8" %>
 <%@ page import="cs.cwnu.dao.UserDao" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.Iterator" %>
 <html>
 <head>
-    <title>ÁôÑÔ°å½çÃæ</title>
+    <title>ç•™è¨€æ¿ç•Œé¢</title>
 </head>
 <body bgcolor="#CCCFFF">
     <div style="margin-left: 35%;margin-top: 100px;font-family: 'Microsoft YaHei UI'">
-        <h1>ÕâÀïÊÇÁôÑÔ°åÖ÷½çÃæ</h1>
+        <h1>è¿™é‡Œæ˜¯ç•™è¨€æ¿ä¸»ç•Œé¢</h1>
         <form action="leavemessage.jsp" method="post">
             <table border="1">
 
@@ -25,43 +25,43 @@
 
                     User logUser = (User) request.getSession().getAttribute("login");
                 %>
-                <caption>ËùÓĞÁôÑÔĞÅÏ¢</caption><br>
-                ÓÃ»§Ãû£º<%= logUser.getName()%>
-                ËùÊôÈ¨ÏŞ£º<%
+                <caption>æ‰€æœ‰ç•™è¨€ä¿¡æ¯</caption><br>
+                ç”¨æˆ·åï¼š<%= logUser.getName()%>
+                æ‰€å±æƒé™ï¼š<%
                     if ((new UserDao().getUserRole(logUser.getName())) == 0){
-                        out.print("¹ÜÀíÔ±");
+                        out.print("ç®¡ç†å‘˜");
                     }else if((new UserDao().getUserRole(logUser.getName())) == 1){
-                        out.print("ÆÕÍ¨ÓÃ»§");
+                        out.print("æ™®é€šç”¨æˆ·");
                     }else {
-                        out.print("Î´ÖªÓÃ»§");
+                        out.print("æœªçŸ¥ç”¨æˆ·");
                     }
                 %><br>
-                µ±Ç°×´Ì¬£º<%
+                å½“å‰çŠ¶æ€ï¼š<%
                     if((new UserDao().getUserStatus(logUser.getName())) == 0){
-                        out.print("ÕıÔÚÉêÇë½â³ı½ûÑÔ");
+                        out.print("æ­£åœ¨ç”³è¯·è§£é™¤ç¦è¨€");
                     }else if((new UserDao().getUserStatus(logUser.getName())) == 1){
-                        out.print("¿ÉÒÔÕı³£·¢ÑÔ");
+                        out.print("å¯ä»¥æ­£å¸¸å‘è¨€");
                     }else if((new UserDao().getUserStatus(logUser.getName())) == 2){
-                        out.print("½ûÑÔ×´Ì¬");
+                        out.print("ç¦è¨€çŠ¶æ€");
                         session.setAttribute("loguser",logUser.getName());
                     %>
-                µã»÷<a  href="SetStatusAskingServlet">ÕâÀï</a>ÉêÇë½â³ı½ûÑÔ
+                ç‚¹å‡»<a  href="SetStatusAskingServlet">è¿™é‡Œ</a>ç”³è¯·è§£é™¤ç¦è¨€
 
                     <%
                     }else{
-                        out.print("Î´Öª´íÎó");
+                        out.print("æœªçŸ¥é”™è¯¯");
                     }
 
                     %>
                 <br>
                 <tr>
-                    <th>ÁôÑÔÈËĞÕÃû</th>
-                    <th>ËùÊôÈ¨ÏŞ</th>
-                    <th>ÁôÑÔÊ±¼ä</th>
-                    <th>ÁôÑÔ±êÌâ</th>
-                    <th>ÁôÑÔÄÚÈİ</th>
-                    <th>¿ÉÓÃ²Ù×÷</th>
-                    <th>³ÉÔ±¹ÜÀí</th>
+                    <th>ç•™è¨€äººå§“å</th>
+                    <th>æ‰€å±æƒé™</th>
+                    <th>ç•™è¨€æ—¶é—´</th>
+                    <th>ç•™è¨€æ ‡é¢˜</th>
+                    <th>ç•™è¨€å†…å®¹</th>
+                    <th>å¯ç”¨æ“ä½œ</th>
+                    <th>æˆå‘˜ç®¡ç†</th>
                 </tr>
 
                 <%
@@ -75,11 +75,11 @@
                     <td><%= mb.getName()%></td>
                     <td><%
                             if ((new UserDao().getUserRole(mb.getName())) == 0){
-                                out.print("¹ÜÀíÔ±");
+                                out.print("ç®¡ç†å‘˜");
                             }else if((new UserDao().getUserRole(mb.getName())) == 1){
-                                out.print("ÆÕÍ¨ÓÃ»§");
+                                out.print("æ™®é€šç”¨æˆ·");
                             }else {
-                                out.print("Î´ÖªÓÃ»§");
+                                out.print("æœªçŸ¥ç”¨æˆ·");
                             }
 
                     %></td>
@@ -88,41 +88,41 @@
                     <td><%= mb.getMessage()%></td>
 
 
-                    <%--¹ÜÀíÔ±¿ÉÒÔÉ¾³ıÁôÑÔ--%>
+                    <%--ç®¡ç†å‘˜å¯ä»¥åˆ é™¤ç•™è¨€--%>
                     <td><%
                             if ((new UserDao().getUserRole(logUser.getName())) == 0){
                                 int id  = mb.getId();
                                 session.setAttribute("id",id);
-                                out.print("<a  href=\"DeleteMessageServlet\">É¾³ı</a>");
+                                out.print("<a  href=\"DeleteMessageServlet\">åˆ é™¤</a>");
                             }else if((new UserDao().getUserRole(logUser.getName())) == 1){
-                                out.print("²»ÄÜ²Ù×÷");
+                                out.print("ä¸èƒ½æ“ä½œ");
                             }else {
-                                out.print("Î´ÖªÈ¨ÏŞ");
+                                out.print("æœªçŸ¥æƒé™");
                             }
                     %></td>
 
 
-                    <%--¹ÜÀíÔ±¿ÉÒÔÉèÖÃ³ÉÔ±×´Ì¬--%>
+                    <%--ç®¡ç†å‘˜å¯ä»¥è®¾ç½®æˆå‘˜çŠ¶æ€--%>
                     <td>
                         <%
-                            /*Èç¹ûÊÇ¹ÜÀíÔ±Ôò¿ÉÒÔ½ûÑÔ¡¢½â³ı½ûÑÔ£¨±ØĞëÓÃ»§ÉêÇë£©*/
+                            /*å¦‚æœæ˜¯ç®¡ç†å‘˜åˆ™å¯ä»¥ç¦è¨€ã€è§£é™¤ç¦è¨€ï¼ˆå¿…é¡»ç”¨æˆ·ç”³è¯·ï¼‰*/
                             if ((new UserDao().getUserRole(logUser.getName())) == 0){
                                 if((new UserDao().getUserStatus(mb.getName()) == 1)) {
                                     String banname  = mb.getName();
                                     session.setAttribute("banname",banname);
-                                    out.print("<a  href=\"SetStatusBanServlet\">½ûÑÔ</a>");
+                                    out.print("<a  href=\"SetStatusBanServlet\">ç¦è¨€</a>");
                                 }else if (((new UserDao().getUserStatus(mb.getName()) == 0))){
                                     String activatedname  = mb.getName();
                                     session.setAttribute("activatedname",activatedname);
-                                    out.print("<a  href=\"SetStatusActivatedServlet\">½â³ı½ûÑÔ</a>");
+                                    out.print("<a  href=\"SetStatusActivatedServlet\">è§£é™¤ç¦è¨€</a>");
                                 } else {
-                                    out.print("½ûÑÔ×´Ì¬");
+                                    out.print("ç¦è¨€çŠ¶æ€");
                                 }
-                            /*Èç¹ûÊÇÆÕÍ¨ÓÃ»§»òÕßÊÇÎ´ÖªÓÃ»§Ôò¿ÉÒÔÉêÇë½â³ı½ûÑÔ*/
+                            /*å¦‚æœæ˜¯æ™®é€šç”¨æˆ·æˆ–è€…æ˜¯æœªçŸ¥ç”¨æˆ·åˆ™å¯ä»¥ç”³è¯·è§£é™¤ç¦è¨€*/
                             }else if((new UserDao().getUserRole(logUser.getName())) == 1){
-                                out.print("È¨ÏŞ²»×ã");
+                                out.print("æƒé™ä¸è¶³");
                             }else {
-                                out.print("È¨ÏŞ²»Ã÷");
+                                out.print("æƒé™ä¸æ˜");
                             }
                         %>
                     </td>
@@ -136,10 +136,10 @@
         <%
             if ((new UserDao().getUserStatus(logUser.getName())) == 1 || (new UserDao().getUserRole(logUser.getName())) == 0){
         %>
-        <a style="margin-left: 22%" href="leavemessage.jsp">ÁôÑÔ</a>
+        <a style="margin-left: 22%" href="leavemessage.jsp">ç•™è¨€</a>
         <%
             }else {
-                out.print("ÄúÏÖÔÚ»¹²»ÄÜ·¢ÑÔ");
+                out.print("æ‚¨ç°åœ¨è¿˜ä¸èƒ½å‘è¨€");
             }
         %>
     </div>
