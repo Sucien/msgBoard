@@ -108,17 +108,21 @@
                             /*如果是管理员则可以禁言、解除禁言（必须用户申请）*/
                             if ((new UserDao().getUserRole(logUser.getName())) == 0){
                                 if((new UserDao().getUserStatus(mb.getName()) == 1)) {
+
+                                    /*获取当前状态下的用户名*/
                                     String banname  = mb.getName();
                                     session.setAttribute("banname",banname);
                                     out.print("<a  href=\"SetStatusBanServlet\">禁言</a>");
                                 }else if (((new UserDao().getUserStatus(mb.getName()) == 0))){
+                                    /*获取当前状态下的用户名*/
                                     String activatedname  = mb.getName();
                                     session.setAttribute("activatedname",activatedname);
+
                                     out.print("<a  href=\"SetStatusActivatedServlet\">解除禁言</a>");
                                 } else {
                                     out.print("禁言状态");
                                 }
-                            /*如果是普通用户或者是未知用户则可以申请解除禁言*/
+                            /*如果是普通用户或者是未知用户则显示权限不足*/
                             }else if((new UserDao().getUserRole(logUser.getName())) == 1){
                                 out.print("权限不足");
                             }else {
@@ -136,10 +140,10 @@
         <%
             if ((new UserDao().getUserStatus(logUser.getName())) == 1 || (new UserDao().getUserRole(logUser.getName())) == 0){
         %>
-        <a style="margin-left: 22%" href="leavemessage.jsp">留言</a>
+        <a style="margin-left: 22%" href="leavemessage.jsp">留言</a>（管理员不受禁言限制）
         <%
             }else {
-                out.print("您现在还不能发言");
+                out.print("您现在还不能发言，在上方可查看您的进度以及申请解除禁言");
             }
         %>
     </div>

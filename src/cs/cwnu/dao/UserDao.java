@@ -186,7 +186,6 @@ public class UserDao {
 
             pstmt.executeUpdate();
 
-            System.out.println("genxinchenggong!");
             return true;
         }catch (Exception e){
             e.printStackTrace();

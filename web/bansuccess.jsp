@@ -11,6 +11,9 @@
     <title>Title</title>
 </head>
 <body>
+
+<div bgcolor="#CCCFFF" style="margin-left: 42%;margin-top: 240px;font-family: 'Microsoft YaHei UI'">
     禁言成功！单击<a href="LoginServlet">这里</a>返回主界面
+</div>
 </body>
 </html>
