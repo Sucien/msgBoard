@@ -34,7 +34,10 @@ public class LoginServlet extends HttpServlet {
             request.getParameter("password");
         }
         if (l != null) {
+
+            //把用户信息存在login里头
             session.setAttribute("login", l);
+
 
             //查询messages数据库里面的消息然后加入到al这个数组里面去
             ArrayList al = userDao.findMbInfo();

@@ -24,6 +24,7 @@ public class RegisterServlet extends HttpServlet {
         User user = new User();
 
         String role = request.getParameter("role");
+
         if(role.equals("ADMIN")){
             user.setRole(User.ADMIN);
             System.out.println(user.getRole());

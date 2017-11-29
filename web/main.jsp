@@ -25,6 +25,7 @@
                     <th>留言时间</th>
                     <th>留言标题</th>
                     <th>留言内容</th>
+                    <th>可用操作</th>
                 </tr>
                 <% ArrayList<Message> al = new ArrayList<Message>();
                    al = (ArrayList) session.getAttribute("al");
@@ -50,6 +51,19 @@
                     <td><%= mb.getTime().toString()%></td>
                     <td><%= mb.getTitle()%></td>
                     <td><%= mb.getMessage()%></td>
+                    <td><%
+                        if ((new UserDao().getUserRole(mb.getName())) == 0){
+                            int id  = mb.getId();
+                            session.setAttribute("id",id);
+                            out.print("<a  href=\"DeleteMessageServlet\">删除</a>");
+                        }else if((new UserDao().getUserRole(mb.getName())) == 1){
+                            out.print("不能操作");
+                        }else {
+                            out.print("未知权限");
+                        }
+
+
+                    %></td>
                 </tr>
                 <%
                         }

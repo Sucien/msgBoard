@@ -19,9 +19,8 @@ public class UserDao {
     //向User类里面写数据库的内容
     public User checkLogin(String name){
         try{
-            pstmt = conn.prepareStatement("SELECT * FROM users WHERE name=?"+"AND password=?");
+            pstmt = conn.prepareStatement("SELECT * FROM users WHERE name=?");
             pstmt.setString(1,name);
-            pstmt.setString(2,name);
 
             ResultSet rs = pstmt.executeQuery();
 
@@ -103,26 +102,6 @@ public class UserDao {
         }
     }
 
-
-/*    public int getCount(){
-
-        int count = -1;
-
-        try{
-            pstmt = conn.prepareStatement("SELECT count(*) FROM users");
-            ResultSet rs = pstmt.executeQuery();
-
-            while (rs.next()){
-                count = rs.getInt(1);
-            }
-            return count;
-        }catch (Exception e){
-            e.printStackTrace();
-            return 0;
-        }
-    }*/
-
-
     public boolean addInfo(Message message){
         try{
             pstmt = conn.prepareStatement("INSERT INTO messages VALUES(?,?,?,?,?)");
@@ -131,6 +110,20 @@ public class UserDao {
             pstmt.setDate(3,message.getTime());
             pstmt.setString(4,message.getTitle());
             pstmt.setString(5,message.getMessage());
+            pstmt.executeUpdate();
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+    public boolean delInfo(int id){
+        try{
+            pstmt = conn.prepareStatement("DELETE FROM messages WHERE id=?");
+            pstmt.setInt(1,id);
+
             pstmt.executeUpdate();
             return true;
         }catch (Exception e){

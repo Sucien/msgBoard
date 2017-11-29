@@ -1,7 +1,5 @@
 package cs.cwnu.servlet;
 
-import cs.cwnu.bean.Message;
-import cs.cwnu.bean.User;
 import cs.cwnu.dao.UserDao;
 
 import javax.servlet.ServletException;
@@ -10,10 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Date;
 
-@WebServlet(name = "LeaveMessageServlet")
-public class LeaveMessageServlet extends HttpServlet {
+@WebServlet(name = "DeleteMessageServlet")
+public class DeleteMessageServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         this.doGet(request,response);
     }
@@ -22,20 +19,10 @@ public class LeaveMessageServlet extends HttpServlet {
         request.setCharacterEncoding("gb2312");
         response.setContentType("gb2312");
 
-        String title = request.getParameter("title");
-        String message = request.getParameter("message");
+        int id = (int) request.getSession().getAttribute("id");
 
-
-        User user = (User) request.getSession().getAttribute("login");
-
-        Message mb = new Message();
-        mb.setName(user.getName());
-        mb.setTime(new Date(System.currentTimeMillis()));
-        mb.setTitle(title);
-        mb.setMessage(message);
-
-        if(new UserDao().addInfo(mb)){
-            response.sendRedirect("success.jsp");
+        if(new UserDao().delInfo(id)){
+            response.sendRedirect("delsuccess.jsp");
         }
     }
 }
