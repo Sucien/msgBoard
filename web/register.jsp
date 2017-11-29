@@ -5,7 +5,7 @@
   Time: 15:06
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" import="java.util.*" pageEncoding="GB2312" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="GB2312" %>
 <html>
 <head>
     <title>注册界面</title>
@@ -25,6 +25,13 @@
                     <td><input name="password" type="password" size="21"></td>
                 </tr>
             </table>
+            角色：
+            <select name="role">
+                <option value="ADMIN">管理员</option>
+                <option value="MEMBER">普通成员</option>
+            </select>
+            <br>
+
             <input type="submit" value="注册">
             <input type="reset" value="重置">
         </form>

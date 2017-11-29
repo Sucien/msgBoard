@@ -1,18 +1,18 @@
 <%--
   Created by IntelliJ IDEA.
   User: lisuc
-  Date: 2017/11/21
-  Time: 15:18
+  Date: 2017/11/29
+  Time: 11:23
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="GB2312" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>³É¹¦½çÃæ</title>
+    <title>Title</title>
 </head>
 <body>
     <div bgcolor="#CCCFFF" style="margin-left: 42%;margin-top: 240px;font-family: 'Microsoft YaHei UI'">
-        ÁôÑÔ³É¹¦£¬µ¥»÷<a href="LoginServlet">ÕâÀï</a>·µ»ØÖ÷½çÃæ
+        è§£é™¤æˆåŠŸï¼å•å‡»<a href="LoginServlet">è¿™é‡Œ</a>è¿”å›žä¸»ç•Œé¢
     </div>
 </body>
 </html>

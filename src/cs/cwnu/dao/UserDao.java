@@ -19,9 +19,8 @@ public class UserDao {
     //向User类里面写数据库的内容
     public User checkLogin(String name){
         try{
-            pstmt = conn.prepareStatement("SELECT * FROM users WHERE name=?"+"AND password=?");
+            pstmt = conn.prepareStatement("SELECT * FROM users WHERE name=?");
             pstmt.setString(1,name);
-            pstmt.setString(2,name);
 
             ResultSet rs = pstmt.executeQuery();
 
@@ -84,6 +83,25 @@ public class UserDao {
         }
     }
 
+    public int getUserRole(String name){
+
+        int role = -1;
+
+        try{
+            pstmt = conn.prepareStatement("SELECT role FROM users WHERE name=?");
+            pstmt.setString(1,name);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()){
+                role = rs.getInt(1);
+            }
+            return role;
+        }catch (Exception e){
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
     public boolean addInfo(Message message){
         try{
             pstmt = conn.prepareStatement("INSERT INTO messages VALUES(?,?,?,?,?)");
@@ -101,12 +119,10 @@ public class UserDao {
     }
 
 
-    //插入用户数据
-    public boolean insertUser(String name,String password){
+    public boolean delInfo(int id){
         try{
-            pstmt = conn.prepareStatement("INSERT INTO users(name,password) VALUES(?,?)");
-            pstmt.setString(1,name);
-            pstmt.setString(2,password);
+            pstmt = conn.prepareStatement("DELETE FROM messages WHERE id=?");
+            pstmt.setInt(1,id);
 
             pstmt.executeUpdate();
             return true;
@@ -115,5 +131,86 @@ public class UserDao {
             return false;
         }
     }
+
+
+    //插入用户数据、创建用户数据
+    public boolean insertUser(String name,String password,int role) {
+        try {
+            pstmt = conn.prepareStatement("INSERT INTO users(name,password,role,status) VALUES(?,?,?,?)");
+            pstmt.setString(1, name);
+            pstmt.setString(2, password);
+            pstmt.setInt(3, role);
+            pstmt.setInt(4,1);
+
+            pstmt.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+        public boolean setStatusBan(String name){
+            try{
+                pstmt = conn.prepareStatement("UPDATE users SET status=? WHERE name=?");
+                pstmt.setInt(1,2);
+                pstmt.setString(2,name);
+
+                pstmt.executeUpdate();
+                return true;
+            }catch (Exception e){
+                e.printStackTrace();
+                return false;
+            }
+        }
+
+    public boolean setStatusAsking(String name){
+        try{
+            pstmt = conn.prepareStatement("UPDATE users SET status=? WHERE name=?");
+            pstmt.setInt(1,0);
+            pstmt.setString(2,name);
+
+            pstmt.executeUpdate();
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean setStatusActivated(String name){
+        try{
+            pstmt = conn.prepareStatement("UPDATE users SET status=? WHERE name=?");
+            pstmt.setInt(1,1);
+            pstmt.setString(2,name);
+
+            pstmt.executeUpdate();
+
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public int getUserStatus(String name){
+
+        int status = -1;
+
+        try{
+            pstmt = conn.prepareStatement("SELECT status FROM users WHERE name=?");
+            pstmt.setString(1,name);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()){
+                status = rs.getInt(1);
+            }
+            return status;
+        }catch (Exception e){
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
 
 }

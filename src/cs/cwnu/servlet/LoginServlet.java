@@ -19,9 +19,9 @@ public class LoginServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("gb2312");
+        request.setCharacterEncoding("utf-8");
 
-        response.setContentType("gb2312");
+        response.setContentType("utf-8");
         UserDao userDao = new UserDao();
 
         HttpSession session = request.getSession();
@@ -33,13 +33,15 @@ public class LoginServlet extends HttpServlet {
             request.getParameter("password");
         }
         if (l != null) {
+
+            //把用户信息存在login里头
             session.setAttribute("login", l);
+
 
             //查询messages数据库里面的消息然后加入到al这个数组里面去
             ArrayList al = userDao.findMbInfo();
             //并且将al的值“存储”在会话里面
             session.setAttribute("al", al);
-
 
             response.sendRedirect("main.jsp");
         } else {

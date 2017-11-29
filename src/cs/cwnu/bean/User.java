@@ -2,8 +2,9 @@ package cs.cwnu.bean;
 
 public class User {
     //角色定义
+    /*确定用户权限，赋予用户相应操作*/
     public final static int ADMIN = 0;
-    public final static int MEMEBER = 1;
+    public final static int MEMBER = 1;
 
     //状态定义
     public final static int ASKING = 0;
