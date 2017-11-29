@@ -40,4 +40,32 @@
         <servlet-name>DeleteMessageServlet</servlet-name>
         <url-pattern>/DeleteMessageServlet</url-pattern>
     </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>SetStatusBanServlet</servlet-name>
+        <servlet-class>cs.cwnu.servlet.SetStatusBanServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SetStatusBanServlet</servlet-name>
+        <url-pattern>/SetStatusBanServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SetStatusAskingServlet</servlet-name>
+        <servlet-class>cs.cwnu.servlet.SetStatusAskingServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SetStatusAskingServlet</servlet-name>
+        <url-pattern>/SetStatusAskingServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SetStatusActivatedServlet</servlet-name>
+        <servlet-class>cs.cwnu.servlet.SetStatusActivatedServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SetStatusActivatedServlet</servlet-name>
+        <url-pattern>/SetStatusActivatedServlet</url-pattern>
+    </servlet-mapping>
 </web-app>
