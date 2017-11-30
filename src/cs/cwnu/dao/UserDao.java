@@ -1,5 +1,6 @@
 package cs.cwnu.dao;
 
+import cs.cwnu.bean.Line;
 import cs.cwnu.bean.Message;
 import cs.cwnu.bean.User;
 import cs.cwnu.db.DBconn;
@@ -31,7 +32,6 @@ public class UserDao {
                 user.setName(rs.getString(2));
                 user.setPassword(rs.getString(3));
                 user.setRole(rs.getInt(4));
-
                 return user;
             }
             return null;
@@ -41,11 +41,12 @@ public class UserDao {
         }
     }
 
-    public ArrayList<Message> findMbInfo(){
+    public ArrayList<Message> findMbInfo(int page){
         try{
             ArrayList<Message> al = new ArrayList<Message>();
 
-            pstmt = conn.prepareStatement("SELECT * FROM messages");
+            pstmt = conn.prepareStatement("SELECT * FROM messages limit ?,10");
+            pstmt.setInt(1,page);
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()){
@@ -62,6 +63,23 @@ public class UserDao {
         }catch (Exception e){
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public int getMaxPage(){
+        int max = -1;
+        try {
+            pstmt = conn.prepareStatement("SELECT count(*) FROM messages ");
+
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()){
+                max = rs.getInt(1);
+            }
+            return max;
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return -1;
         }
     }
 
@@ -123,6 +141,21 @@ public class UserDao {
         try{
             pstmt = conn.prepareStatement("DELETE FROM messages WHERE id=?");
             pstmt.setInt(1,id);
+
+            pstmt.executeUpdate();
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean overInfo(int id,String title,String message){
+        try{
+            pstmt = conn.prepareStatement("UPDATE messages SET title=?,mesage=? WHERE id=?");
+            pstmt.setString(1,title);
+            pstmt.setString(2,message);
+            pstmt.setInt(3,id);
 
             pstmt.executeUpdate();
             return true;
@@ -209,6 +242,52 @@ public class UserDao {
         }catch (Exception e){
             e.printStackTrace();
             return 0;
+        }
+    }
+
+    public ArrayList<Line> isLine(){
+        ArrayList<Line> name = new ArrayList<Line>();
+        try {
+            pstmt = conn.prepareStatement("SELECT name FROM isline");
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()){
+                Line line = new Line();
+                line.setName(rs.getString(1));
+                name.add(line);
+            }
+            return name;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public boolean InsertLine(String name){
+        try {
+            pstmt = conn.prepareStatement("INSERT INTO isline(id,name,line) VALUES(?,?,?)");
+            pstmt.setInt(1, 1);
+            pstmt.setString(2, name);
+            pstmt.setInt(3, 1);
+
+            pstmt.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean delLine(String name){
+        try{
+            pstmt = conn.prepareStatement("DELETE FROM isline WHERE name=?");
+            pstmt.setString(1,name);
+
+            pstmt.executeUpdate();
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
         }
     }
 

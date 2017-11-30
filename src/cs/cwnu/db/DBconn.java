@@ -12,7 +12,7 @@ public class DBconn {
         try{
 
             Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/msgdb","root","960406");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/msgdb?characterEncoding=utf-8&useSSL=true","root","960406");
             return conn;
 
         }catch (SQLException e) {

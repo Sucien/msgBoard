@@ -20,7 +20,7 @@ public class SetStatusActivatedServlet extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         response.setContentType("utf-8");
 
-        String name = (String) request.getSession().getAttribute("activatedname");
+        String name = request.getParameter("activatedname");
 
         if(new UserDao().setStatusActivated(name)){
             System.out.println("更新数据成功！！！！！");

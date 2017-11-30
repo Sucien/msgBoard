@@ -19,7 +19,12 @@ public class DeleteMessageServlet extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         response.setContentType("utf-8");
 
-        int id = (int) request.getSession().getAttribute("id");
+        String id1 =  request.getParameter("id");
+
+        System.out.println("Servlet中获取的id是："+id1);
+
+        int id = Integer.parseInt(id1);
+
 
         if(new UserDao().delInfo(id)){
             response.sendRedirect("delsuccess.jsp");

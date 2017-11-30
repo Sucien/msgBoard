@@ -9,20 +9,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "SetStatusBanServlet")
-public class SetStatusBanServlet extends HttpServlet {
+@WebServlet(name = "PageServlet")
+public class PageServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        this.doGet(request,response);
+        this.doGet(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
         response.setContentType("utf-8");
+        UserDao userDao = new UserDao();
 
-        String name = request.getParameter("banname");
 
-        if(new UserDao().setStatusBan(name)){
-            response.sendRedirect("bansuccess.jsp");
-        }
     }
 }

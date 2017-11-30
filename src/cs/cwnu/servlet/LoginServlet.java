@@ -28,9 +28,17 @@ public class LoginServlet extends HttpServlet {
 
         User l = (User) session.getAttribute("login");
 
+
         if(l == null) {
             l = userDao.checkLogin(request.getParameter("name"));
             request.getParameter("password");
+
+            if(l != null){
+                if(userDao.InsertLine(l.getName())){
+                    ArrayList li = userDao.isLine();
+                    session.setAttribute("li",li);
+                }
+            }
         }
         if (l != null) {
 
@@ -39,11 +47,16 @@ public class LoginServlet extends HttpServlet {
 
 
             //查询messages数据库里面的消息然后加入到al这个数组里面去
-            ArrayList al = userDao.findMbInfo();
+            ArrayList al = userDao.findMbInfo(0);
             //并且将al的值“存储”在会话里面
             session.setAttribute("al", al);
 
+
+
             response.sendRedirect("main.jsp");
+
+
+
         } else {
             request.setAttribute("loginError", "输入的用户名不存在或者密码错误");
 

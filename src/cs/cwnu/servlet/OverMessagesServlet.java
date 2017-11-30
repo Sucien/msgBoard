@@ -9,20 +9,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "SetStatusBanServlet")
-public class SetStatusBanServlet extends HttpServlet {
+@WebServlet(name = "OverMessagesServlet")
+public class OverMessagesServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        this.doGet(request,response);
+        this.doGet(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
         response.setContentType("utf-8");
 
-        String name = request.getParameter("banname");
+        int oid = (int) request.getSession().getAttribute("oid");
 
-        if(new UserDao().setStatusBan(name)){
-            response.sendRedirect("bansuccess.jsp");
+        String otitle = request.getParameter("otitle");
+        String omessage = request.getParameter("omessage");
+
+        if(new UserDao().overInfo(oid,otitle,omessage)){
+            response.sendRedirect("delsuccess.jsp");
         }
     }
 }

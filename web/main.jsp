@@ -10,21 +10,22 @@
 <%@ page import="cs.cwnu.dao.UserDao" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.Iterator" %>
+<%@ page import="cs.cwnu.bean.Line" %>
 <html>
 <head>
     <title>留言板界面</title>
 </head>
 <body bgcolor="#CCCFFF">
     <div style="margin-left: 35%;margin-top: 100px;font-family: 'Microsoft YaHei UI'">
+        <% ArrayList<Message> al = new ArrayList<Message>();
+            al = (ArrayList) session.getAttribute("al");
+
+            User logUser = (User) request.getSession().getAttribute("login");
+        %>
+        <h6 style="margin-left: 35%" >欢迎您：<%= logUser.getName()%><%out.print("<a  href=\"LogoutServlet?lineName="+logUser.getName()+"\""+">  退出</a>");%> </h6>
         <h1>这里是留言板主界面</h1>
         <form action="leavemessage.jsp" method="post">
             <table border="1">
-
-                <% ArrayList<Message> al = new ArrayList<Message>();
-                    al = (ArrayList) session.getAttribute("al");
-
-                    User logUser = (User) request.getSession().getAttribute("login");
-                %>
                 <caption>所有留言信息</caption><br>
                 用户名：<%= logUser.getName()%>
                 所属权限：<%
@@ -90,10 +91,11 @@
 
                     <%--管理员可以删除留言--%>
                     <td><%
+                        int id  = mb.getId();
+                        session.setAttribute("id",id);
                             if ((new UserDao().getUserRole(logUser.getName())) == 0){
-                                int id  = mb.getId();
-                                session.setAttribute("id",id);
-                                out.print("<a  href=\"DeleteMessageServlet\">删除</a>");
+                                out.print("<a  href=\"DeleteMessageServlet?id="+id+"\""+">删除 </a>");
+                                out.print("<a  href=\"overmessage.jsp?id="+id+"\""+"> 覆盖</a>");
                             }else if((new UserDao().getUserRole(logUser.getName())) == 1){
                                 out.print("不能操作");
                             }else {
@@ -111,14 +113,12 @@
 
                                     /*获取当前状态下的用户名*/
                                     String banname  = mb.getName();
-                                    session.setAttribute("banname",banname);
-                                    out.print("<a  href=\"SetStatusBanServlet\">禁言</a>");
+                                    out.print("<a  href=\"SetStatusBanServlet?banname="+banname+"\""+">禁言</a>");
                                 }else if (((new UserDao().getUserStatus(mb.getName()) == 0))){
                                     /*获取当前状态下的用户名*/
                                     String activatedname  = mb.getName();
                                     session.setAttribute("activatedname",activatedname);
-
-                                    out.print("<a  href=\"SetStatusActivatedServlet\">解除禁言</a>");
+                                    out.print("<a  href=\"SetStatusActivatedServlet?activatedname="+activatedname+"\""+">解除禁言</a>");
                                 } else {
                                     out.print("禁言状态");
                                 }
@@ -144,6 +144,25 @@
         <%
             }else {
                 out.print("您现在还不能发言，在上方可查看您的进度以及申请解除禁言");
+            }
+        %>
+        <%--<% int maxpage = (int) request.getSession().getAttribute("maxPage");%>
+        <% int truepage = (int) request.getSession().getAttribute("truePage");%>
+        当前第<%= truepage  %>/页 共<%= maxpage %>页--%>
+
+        <hr>
+        在线好友有：<br>
+        <%
+            ArrayList<Line> li = new ArrayList<Line>();
+            li = (ArrayList<Line>) session.getAttribute("li");
+            if(li != null) {
+                Iterator it = li.iterator();
+                while (it.hasNext()) {
+                    Line line = (Line) it.next();
+                    out.print(line.getName()+"   ");
+                }
+            }else {
+                out.print("没有人在线");
             }
         %>
     </div>
